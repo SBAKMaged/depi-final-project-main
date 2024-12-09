@@ -1,0 +1,30 @@
+---
+- name: Install Apache and configure welcome message
+  hosts: webservers
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  become: yes
+  tasks:
+
+    - name: update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install Ansible
+      apt:
+        name: ansible
+        state: present
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+    - name: Start and enable Apache service
+      systemd:
+        name: apache2
+        state: started
+        enabled: yes
+    - name: Add a welcome message
+      copy:
+        content: "Welcome to your Apache server!"
+        dest: /var/www/html/index.html

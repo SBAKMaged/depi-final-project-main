@@ -1,0 +1,4 @@
+**/.terraform/*
+*/output.json
+Ansible/generate_ssh.sh
+./keys/*
